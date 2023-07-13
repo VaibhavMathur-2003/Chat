@@ -1,0 +1,88 @@
+.Container {
+    display: grid;
+    grid-template-rows: 10% 75% 15%;
+    overflow: hidden;
+    background-color: #9a86f3;
+  }
+  
+  .Container .brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .Container .brand img {
+    height: 2rem;
+  }
+  
+  .Container .brand h3 {
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .Container .contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    gap: 0.8rem;
+  }
+  
+  .Container .contacts::-webkit-scrollbar {
+    width: 0.2rem;
+  }
+  
+  .Container .contacts::-webkit-scrollbar-thumb {
+    background-color: #ffffff39;
+    width: 0.1rem;
+    border-radius: 1rem;
+  }
+  
+  .Container .contacts .contact {
+    background-color: #ffffff34;
+    min-height: 5rem;
+    cursor: pointer;
+    width: 90%;
+    border-radius: 0.2rem;
+    padding: 0.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    transition: 0.5s ease-in-out;
+  }
+  
+  
+  .Container .contacts .contact .username h3 {
+    color: white;
+  }
+  
+  .Container .contacts .selected {
+    background-color: #9a86f3;
+  }
+  
+  .Container .current-user {
+    background: #8E0E00;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  
+  .Container .current-user .username h2 {
+    color: white;
+  }
+  
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
+    .Container {
+      gap: 0.5rem;
+    }
+  
+    .Container .current-user .username h2 {
+      font-size: 1rem;
+    }
+  }
+  
