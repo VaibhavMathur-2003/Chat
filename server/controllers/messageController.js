@@ -1,5 +1,5 @@
 const Messages = require("../models/messageModel");
-const messageDb = 'messages'
+const messageDb = 'Chat'
 const { MongoClient, ObjectId } = require('mongodb');
 
 const messageCollectionDb = 'messages'
@@ -8,14 +8,13 @@ const messageCollectionDb = 'messages'
 module.exports.getMessages = async (req, res, next) => {
   try {
     const { from, to } = req.body;
-    const client = await MongoClient.connect(process.env.MONGO_URL);
-    const msgcollection = client.db(messageDb).collection(messageCollectionDb);
-    const messages = await msgcollection.find({
+
+    const messages = await Messages.find({
       users: {
         $all: [from, to],
       },
     }).sort({ updatedAt: 1 });
-    console.log(messages)
+    console.log(messages);
 
     const projectedMessages = messages.map((msg) => {
       return {
