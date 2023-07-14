@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
-import ChatContainer from "../components/ChatContainer";
-import Contacts from "../components/Contacts";
+import ChatBox from "./ChatBox";
+import People from "./People";
 import "../Styles/Chat.css"
 
 export default function Chat() {
@@ -59,9 +59,9 @@ export default function Chat() {
             </div>
             </>
           ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
+            <ChatBox currentChat={currentChat} socket={socket} />
           )}
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
+          <People contacts={contacts} changeChat={handleChatChange} />
 
         </div>
       </div>

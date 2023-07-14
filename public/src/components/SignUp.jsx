@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import logoImg from "../logoImg.webp"
 import "../Styles/Login.css"
 
-export default function Register() {
+export default function SignUp() {
   const navigate = useNavigate();
   const toastOptions = {
     position: "bottom-right",

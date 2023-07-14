@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../Styles/ChatContainer.css"
-import Logout from "./Logout";
+import "../Styles/ChatBox.css";
 import { v4 as uuidv4 } from "uuid";
 import { IoMdSend } from "react-icons/io";
-import "../Styles/ChatInput.css"
+import { useNavigate } from "react-router-dom";
+import "../Styles/ChatInput.css";
 import axios from "axios";
 
-export default function ChatContainer({ currentChat, socket }) {
+export default function ChatBox({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -15,19 +15,20 @@ export default function ChatContainer({ currentChat, socket }) {
     const data = await JSON.parse(
       localStorage.getItem("chat-app-current-user")
     );
-    const response = await axios.post(`http://localhost:5000/api/messages/getmsg`, {
-      from: data._id,
-      to: currentChat._id,
-    });
+    const response = await axios.post(
+      `http://localhost:5000/api/messages/getmsg`,
+      {
+        from: data._id,
+        to: currentChat._id,
+      }
+    );
     setMessages(response.data);
   }, [currentChat]);
 
   useEffect(() => {
     const getCurrentChat = async () => {
       if (currentChat) {
-        await JSON.parse(
-          localStorage.getItem("chat-app-current-user")
-        )._id;
+        await JSON.parse(localStorage.getItem("chat-app-current-user"))._id;
       }
     };
     getCurrentChat();
@@ -77,7 +78,16 @@ export default function ChatContainer({ currentChat, socket }) {
       setMsg("");
     }
   };
-
+  const navigate = useNavigate();
+  const handleClick = async () => {
+    const id = await JSON.parse(localStorage.getItem("chat-app-current-user"))
+      ._id;
+    const data = await axios.get(`http://localhost:5000/api/auth/logout/${id}`);
+    if (data.status === 200) {
+      localStorage.clear();
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="ContainerChat">
@@ -87,7 +97,9 @@ export default function ChatContainer({ currentChat, socket }) {
             <h3>{currentChat.username}</h3>
           </div>
         </div>
-        <Logout />
+        <button className="lgbtn" onClick={handleClick}>
+          Bye!
+        </button>
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
@@ -107,20 +119,18 @@ export default function ChatContainer({ currentChat, socket }) {
         })}
       </div>
       <div className="InputChat" handleSendMsg={handleSendMsg}>
-      <form className="input-container" onSubmit={(event) => sendChat(event)}>
-        <input
-          type="text"
-          placeholder="Message"
-          onChange={(e) => setMsg(e.target.value)}
-          value={msg}
-        />
-        <button type="submit">
-          <IoMdSend />
-        </button>
-      </form>
-    </div>
-
+        <form className="input-container" onSubmit={(event) => sendChat(event)}>
+          <input
+            type="text"
+            placeholder="Message"
+            onChange={(e) => setMsg(e.target.value)}
+            value={msg}
+          />
+          <button type="submit">
+            <IoMdSend />
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import "../Styles/Contacts.css";
+import "../Styles/People.css";
 import logoImg from "../logoImg.webp"
 
 
-export default function Contacts({ contacts, changeChat }) {
+export default function People({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
   useEffect(async () => {
